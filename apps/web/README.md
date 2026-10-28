@@ -48,8 +48,8 @@ bun run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000). Run the app through the
-development server rather than opening the HTML prototype directly: the page
-loads its fixture using a same-origin request to `/data/dummy-data.json`.
+development server rather than opening the HTML prototype directly so the
+responsive design and application routes load together.
 
 To create and serve a production build from this directory:
 
@@ -71,9 +71,8 @@ bun run start
 | `/methods`              | Methods and limitations                      |
 | `/seasonal`             | Redirects to `/calendar`                     |
 
-The prototype also supports direct links with `screen` and `cluster` query
-parameters. The Next.js route pages set the initial screen and, for an evidence
-URL, the selected cluster.
+The Next.js route pages set the initial view in the prototype's URL fragment.
+Evidence routes also pass the selected cluster ID.
 
 ## How the app is organized
 
@@ -82,30 +81,35 @@ wrappers that select a screen in the prototype:
 
 - `app/` contains route pages, the root layout, and shared app-level styles.
 - `components/layout/PrototypeFrame.tsx` embeds the prototype in a responsive
-  iframe and passes route state through its query string.
-- `public/resources/FireFusion_Prototype_v14.html` contains the interactive
-  screens, styling, and client-side behaviors.
-- `public/data/dummy-data.json` is the demo fixture served at `/data/dummy-data.json`.
+  iframe and maps application routes to prototype views.
+- `public/resources/FireFusion_Desktop_Prototype.html` contains the responsive
+  app design, interactions, and its illustrative demo values.
+- `public/resources/FireFusion_Mobile_Prototype.html` is the standalone mobile
+  design reference.
+- `public/resources/FireFusion_Prototype_v14.html` is the earlier standalone
+  prototype, which reads the fixture in `public/data/dummy-data.json`.
 - `config/nav.ts` defines the outer application navigation.
 
-The HTML prototype fetches and validates the fixture before drawing the map or
-calendar. It shows a loading status while the request is pending and a visible
-error message if the request or data validation fails. The map, calendar, and
-cluster details are rendered in the iframe; Next.js provides the app routes and
-embedding shell.
+The route pages and map, calendar, and cluster interactions are rendered in the
+iframe; Next.js provides the app routes and embedding shell. The active design
+contains illustrative sample values for layout and interaction only. It does
+not load live observations or the separate v14 JSON fixture.
 
 ## Demo data and limitations
 
-The data in `public/data/dummy-data.json` is labeled as demo-only and not
-measured. In particular:
+The active desktop prototype's embedded values and the separate JSON fixture
+are demo-only and not measured. In particular:
 
-- Map data is provided only for **15 March 2026**.
-- Calendar values are illustrative samples, not actual daily counts.
-- Map `x` and `y` positions are placeholder percentages, not geographic
+- The desktop design's map, calendar, FRP, and confidence examples are
+  illustrative UI fixtures, not measured observations. Event scores are shown as
+  unavailable because they are not implemented.
+- The v14 JSON fixture has map data only for **15 March 2026** and illustrative
+  calendar samples.
+- In v14, map `x` and `y` positions are placeholder percentages, not geographic
   coordinates.
-- Validation results, seasonal anomaly percentiles, event scores, and real score
-  components are not implemented. The validation button is a timed UI demo and
-  performs no calculation.
+- Validation results, seasonal anomaly percentiles, and real score components
+  are not implemented. The validation button is a timed UI demo and performs no
+  calculation.
 
 Do not present these values as real observations. The full data-field
 definitions, expected shapes, and implementation gaps are documented in the
@@ -121,10 +125,10 @@ bun run check-types
 bun run build
 ```
 
-There is no automated test script defined for this workspace. After changing
-the standalone HTML prototype, use the
-[smoke-test checklist](./public/resources/docs/SMOKE_TEST.md) to review its
-screens, interactions, responsive behavior, and accessibility controls.
+There is no automated test script defined for this workspace. The
+[smoke-test checklist](./public/resources/docs/SMOKE_TEST.md) applies to the
+standalone v14 prototype; also verify the app routes and desktop/mobile
+breakpoints when changing the active responsive design.
 
 ## Related documentation
 

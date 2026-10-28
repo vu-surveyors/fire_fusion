@@ -6,13 +6,14 @@ type PrototypeFrameProps = {
 };
 
 export function PrototypeFrame({ screen, clusterId }: PrototypeFrameProps) {
-  const query = new URLSearchParams({ screen });
-  if (clusterId) query.set("cluster", clusterId);
+  const view = screen === "cluster" ? "records" : screen;
+  const route = new URLSearchParams({ view });
+  if (clusterId) route.set("cluster", clusterId);
 
   return (
     <iframe
       className="prototype-frame"
-      src={`/resources/FireFusion_Prototype_v14.html?${query.toString()}`}
+      src={`/resources/FireFusion_Desktop_Prototype.html#${route.toString()}`}
       title="FireFusion sensor-harmonized wildfire intelligence"
     />
   );
