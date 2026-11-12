@@ -1037,17 +1037,11 @@ a:focus-visible {
 }
 
 .brand-mark {
-  display: grid;
-  width: 2.5rem;
-  height: 2.5rem;
-  place-items: center;
-  border: 1px solid rgb(255 107 53 / 42%);
-  border-radius: 0.7rem;
-  background: rgb(255 107 53 / 10%);
-  color: var(--fire);
-  font-family: var(--font-space-grotesk), sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
+  display: block;
+  width: 8.5rem;
+  height: 3rem;
+  object-fit: cover;
+  object-position: center;
 }
 
 .brand-lockup-copy {
@@ -1665,7 +1659,7 @@ a:focus-visible {
   }
 
   .brand-mark {
-    width: 2.1rem;
+    width: 6.5rem;
     height: 2.1rem;
   }
 

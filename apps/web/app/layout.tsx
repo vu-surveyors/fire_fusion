@@ -24,6 +24,9 @@ export const metadata: Metadata = {
     template: "%s | FireFusion",
   },
   description: "A transparent view of harmonized MODIS and VIIRS fire detections.",
+  icons: {
+    icon: "/images/app-icon.jpeg",
+  },
 };
 
 export default function RootLayout({
