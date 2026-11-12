@@ -1,0 +1,19 @@
+{
+  "name": "api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "uv run uvicorn src.api.main:app --reload --host 127.0.0.1 --port 8000",
+    "build": "uv sync",
+    "start": "uv run uvicorn src.api.main:app --host 0.0.0.0 --port 8000",
+    "pipeline": "uv run python -m src.compute.pipeline",
+    "test": "uv run pytest",
+    "fetch:firms": "uv run python fetch_firms.py",
+    "lint": "echo Python API lint skipped",
+    "lint:fix": "echo Python API lint:fix skipped",
+    "check-format": "echo Python API check-format skipped",
+    "format": "echo Python API format skipped",
+    "check-types": "echo Python API check-types skipped"
+  }
+}
+

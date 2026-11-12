@@ -15,12 +15,27 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 async function loadDemoData(): Promise<DemoEnvelope> {
-  const response = await fetch("/resources/data/demo.json");
-  if (!response.ok) {
-    throw new Error(`Demo data request failed (${response.status}).`);
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/v1";
+  let payload: unknown = null;
+
+  // Attempt live API fetch first
+  try {
+    const apiRes = await fetch(`${apiUrl}/bundle`, { cache: "no-store" });
+    if (apiRes.ok) {
+      payload = await apiRes.json();
+    }
+  } catch {
+    // API server not reachable, fallback to static harmonized data
   }
 
-  const payload: unknown = await response.json();
+  // Fallback to static harmonized bundle
+  if (!payload) {
+    const response = await fetch("/resources/data/demo.json");
+    if (!response.ok) {
+      throw new Error(`Demo data request failed (${response.status}).`);
+    }
+    payload = await response.json();
+  }
   if (
     !isRecord(payload) ||
     payload.status !== "ok" ||
