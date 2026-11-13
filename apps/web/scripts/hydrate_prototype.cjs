@@ -184,8 +184,8 @@ async function hydrateFromBackend(){
 }
 setTimeout(hydrateFromBackend, 500);
 `;
-    // Insert before </script>
-    content = content.replace("render();sync(false);", `render();sync(false);${emberMapSyncCode}`);
+    // Insert after main script initialization at top level
+    content = content.replace("parse();render();sync(false);", `parse();render();sync(false);\n${emberMapSyncCode}`);
   }
 
   // Hook updateEmberMap into setDate and setView
@@ -198,3 +198,4 @@ setTimeout(hydrateFromBackend, 500);
 
 updatePrototypeFile(prototypePath);
 updatePrototypeFile(docPrototypePath);
+

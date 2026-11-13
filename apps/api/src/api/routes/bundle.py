@@ -106,10 +106,10 @@ def get_data_bundle(
             formatted_members = [
                 {
                     "det_id": str(m.get("det_id", "")),
-                    "sensor": str(m.get("sensor_family", "")),
-                    "platform": str(m.get("satellite", "")),
+                    "sensor": str(m.get("sensor") or m.get("sensor_family") or ""),
+                    "platform": str(m.get("platform") or m.get("satellite") or ""),
                     "frp": float(m.get("frp", 0.0)),
-                    "conf_class": str(m.get("conf_label", "nominal")).lower(),
+                    "conf_class": {2: "high", 1: "nominal", 0: "low"}.get(m.get("conf_class"), str(m.get("conf_label", "nominal"))).lower(),
                     "ts_utc": str(m.get("ts_utc", ""))
                 }
                 for m in members_raw

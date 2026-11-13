@@ -70,7 +70,7 @@ def run_full_pipeline(data_dir: Path, eps_km: float = 1.5) -> Dict[str, Any]:
     from src.db.session import engine
     engine.dispose()
 
-    conn = get_duckdb_conn()
+    conn = get_duckdb_conn(read_only=False)
     try:
         # Fast bulk ingestion into DuckDB tables using register / insert BY NAME
         conn.register("df_det_temp", df_detections)
@@ -149,6 +149,13 @@ def run_full_pipeline(data_dir: Path, eps_km: float = 1.5) -> Dict[str, Any]:
         },
         "calibration": calibration
     }
+
+def run_pipeline() -> Dict[str, Any]:
+    """Convenience entrypoint for API and background task execution."""
+    from src.db.session import BASE_DIR
+    data_dir = BASE_DIR / "data"
+    return run_full_pipeline(data_dir)
+
 
 if __name__ == "__main__":
     from src.db.session import BASE_DIR

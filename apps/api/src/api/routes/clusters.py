@@ -79,10 +79,8 @@ def get_clusters(
 def get_cluster_by_id(cluster_id: str = Path(..., description="Unique cluster ID")):
     conn = get_duckdb_conn()
     try:
-        query = f"""
-            SELECT * FROM fire_clusters WHERE cluster_id = '{cluster_id}' LIMIT 1
-        """
-        df = conn.execute(query).df()
+        query = "SELECT * FROM fire_clusters WHERE cluster_id = ? LIMIT 1"
+        df = conn.execute(query, [cluster_id]).df()
         if df.empty:
             raise HTTPException(status_code=404, detail=f"Cluster '{cluster_id}' not found.")
 

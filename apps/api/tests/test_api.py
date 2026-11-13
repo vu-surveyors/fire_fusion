@@ -128,3 +128,10 @@ def test_csv_downloads(client):
     assert res_hot.status_code == 200
     assert "text/csv" in res_hot.headers["content-type"]
 
+def test_pipeline_trigger(client, monkeypatch):
+    # Mock run_pipeline so it doesn't do a full 5-minute compute during unit tests
+    monkeypatch.setattr("src.compute.pipeline.run_pipeline", lambda: {"status": "mocked"})
+    res = client.post("/api/v1/pipeline/run")
+    assert res.status_code == 200
+    assert res.json()["status"] == "accepted"
+
