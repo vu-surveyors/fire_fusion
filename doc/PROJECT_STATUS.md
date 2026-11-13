@@ -141,9 +141,9 @@ While the analytical pipeline and API are production-ready, the following items 
 - [ ] **Commit staged frontend updates:** Commit the 7 modified/new files currently staged (`PrototypeFrame.tsx`, `globals.css`, `layout.tsx`, upgraded `FireFusion_Desktop_Prototype.html`, `doc/FireFusion_Changes_Reference.md`, `bun.lock`).
 - [ ] **Push commit to origin:** Push local `main` to `https://github.com/Redemption4254/fire_fusion.git`.
 
-### 2. Live Dynamic Data Hydration in Desktop Prototype (Frontend Polish)
-- [ ] **Connect Prototype Map to Live Cluster Data:** Wire the EMBER map integration seam `window.FireMapPrototype.setData({ clusters, observations, updatedAt })` inside `FireFusion_Desktop_Prototype.html` to automatically consume the harmonized clusters from `demo.json` or `/api/v1/bundle`.
-- [ ] **Expand Calendar Range:** The prototype currently displays sample March 2026 data. Connect the calendar month renderer to dynamically display the real 2020 and 2025 seasonal data from the harmonized DuckDB dataset.
+### 2. Live Dynamic Data Hydration in Desktop Prototype (Completed ✅)
+- [x] **Connect Prototype Map to Live Cluster Data:** Wired the EMBER map integration seam `window.FireMapPrototype.setData({ clusters, observations, updatedAt })` inside `FireFusion_Desktop_Prototype.html` to dynamically consume harmonized clusters and member observations.
+- [x] **Expand Calendar Range:** Hydrated all 552 daily records and 26 months across 2020 and 2025 into `FireFusion_Desktop_Prototype.html`. Set active default date to peak fire event `2025-03-25` (`CL_2025-03-25_0131` with 127 detections and 1,358.1 MW FRP). Added background hydrator that automatically syncs from `/api/v1/bundle` or `demo.json`.
 
 ### 3. Component Architecture Harmonization (`apps/web/features/`)
 - [ ] **Component Audit:** `apps/web/features/` contains modular React components (`MapPanel`, `CalendarHeatmap`, `EvidenceStandardPanel`, etc.) developed early in the project. The current Next.js routes all render via `PrototypeFrame.tsx` embedding `FireFusion_Desktop_Prototype.html`. Decide whether to:
@@ -187,3 +187,4 @@ bun dev
 ```powershell
 docker exec -it fire-fusion-duckdb /duckdb /data/fire_fusion.duckdb -c "SHOW TABLES; SELECT COUNT(*) FROM fire_clusters;"
 ```
+
