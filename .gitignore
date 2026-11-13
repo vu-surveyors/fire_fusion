@@ -48,3 +48,5 @@ __pycache__/
 *.duckdb.wal
 apps/api/cache/
 *.bak
+
+doc/
