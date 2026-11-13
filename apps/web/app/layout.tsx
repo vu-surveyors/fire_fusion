@@ -20,7 +20,7 @@ const jetBrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "FireFusion",
+    default: "FireFusion — Desktop Workspace",
     template: "%s | FireFusion",
   },
   description: "A transparent view of harmonized MODIS and VIIRS fire detections.",

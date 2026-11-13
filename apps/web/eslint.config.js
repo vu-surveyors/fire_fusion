@@ -2,4 +2,4 @@ import { globalIgnores } from "eslint/config";
 import { nextJsConfig } from "@repo/eslint-config/next-js";
 
 /** @type {import("eslint").Linter.Config[]} */
-export default [...nextJsConfig, globalIgnores([".next-dev/**"])];
+export default [...nextJsConfig, globalIgnores([".next-dev/**", "scripts/**"])];
